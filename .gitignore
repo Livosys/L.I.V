@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtualenvs
+venv/
+.env
+.env.*
+
+# Databases
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs
+*.log
+
+# OS / Editor
+.DS_Store
+.vscode/
+.idea/
+
+# Node / Frontend
+node_modules/
+dist/
+
+# Secrets
+*.key
+*.pem
+
+# Binaries / archives
+*.tar.gz
