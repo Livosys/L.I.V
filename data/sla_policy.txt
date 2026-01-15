@@ -1,0 +1,18 @@
+SLA Policy – Customer One AB
+
+Priority 1 (Critical)
+- Response time: 15 minutes
+- Resolution time: 4 hours
+- Availability: 24/7
+
+Priority 2 (High)
+- Response time: 1 hour
+- Resolution time: 8 business hours
+
+Priority 3 (Normal)
+- Response time: 4 business hours
+- Resolution time: 3 business days
+
+Priority 4 (Low)
+- Response time: 1 business day
+- Resolution time: 5 business days

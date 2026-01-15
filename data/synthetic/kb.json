@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "title": "Felsök VPN-problem",
+    "content": "Starta om VPN-klienten, kontrollera MFA och testa annan anslutning."
+  },
+  {
+    "id": 2,
+    "title": "Återställ lösenord",
+    "content": "Gå till lösenordsportalen och följ instruktionerna."
+  },
+  {
+    "id": 3,
+    "title": "Begär server access",
+    "content": "Skapa ett ärende och ange servernamn och behörighet."
+  },
+  {
+    "id": 4,
+    "title": "Outlook kraschar",
+    "content": "Rensa cache och uppdatera Office."
+  }
+]
