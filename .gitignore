@@ -28,3 +28,23 @@ vectors/
 # Editor
 .vscode/
 .idea/
+
+# Rollback / snapshots / backups
+rollback/
+rollback_point/
+snapshots/
+backups/
+
+# Archives
+*.tar.gz
+
+# Filebrowser
+filebrowser.db
+linux-amd64-filebrowser.tar.gz
+
+# Liv / debug artifacts
+liv-shots/
+
+# Generated state
+*.db
+
