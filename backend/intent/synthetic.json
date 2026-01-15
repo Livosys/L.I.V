@@ -1,0 +1,14 @@
+[
+  { "text": "visa alla ärenden", "intent": "LIST_TICKETS" },
+  { "text": "visa ärenden", "intent": "LIST_TICKETS" },
+  { "text": "alla tickets", "intent": "LIST_TICKETS" },
+
+  { "text": "4", "intent": "OPEN_TICKET", "params": { "id": 4 } },
+  { "text": "öppna 4", "intent": "OPEN_TICKET", "params": { "id": 4 } },
+
+  { "text": "vpn", "intent": "SEARCH_KB", "params": { "query": "vpn" } },
+  { "text": "server access", "intent": "SEARCH_KB", "params": { "query": "server access" } },
+
+  { "text": "hej", "intent": "HELP" },
+  { "text": "hjälp", "intent": "HELP" }
+]

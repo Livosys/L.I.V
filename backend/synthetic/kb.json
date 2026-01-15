@@ -1,0 +1,14 @@
+[
+  {
+    "id": 101,
+    "title": "Felsök VPN",
+    "content": "Starta om klienten och kontrollera MFA",
+    "url": "https://synthetic.local/kb/101"
+  },
+  {
+    "id": 102,
+    "title": "Beställ server access",
+    "content": "Skapa ärende och godkänn av chef",
+    "url": "https://synthetic.local/kb/102"
+  }
+]

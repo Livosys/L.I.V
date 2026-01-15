@@ -1,0 +1,13 @@
+model: gpt-5.1-codex-mini
+provider: openai
+
+sandbox: read-only
+approval: never
+reasoning:
+  effort: high
+  summaries: auto
+
+rules:
+  - output: json_only
+  - no_explanations
+  - no_hallucinations

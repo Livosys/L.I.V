@@ -1,0 +1,19 @@
+[0;1;34m# ]8;;file://srv1171677/etc/systemd/system/shix-backend.service/etc/systemd/system/shix-backend.service]8;;[0m
+[0;1;36m[Unit][0m
+Description=SHIX Backend
+After=network.target
+[0;1;38;5;245m[0m
+[0;1;36m[Service][0m
+User=shixl7190
+Group=shixl7190
+WorkingDirectory=/home/shix.livosys.se/backend
+[0;1;38;5;245m[0m
+EnvironmentFile=/home/shix.livosys.se/backend/.env
+[0;1;38;5;245m[0m
+ExecStart=/home/shix.livosys.se/backend/venv/bin/uvicorn main:app --host 0.0.0.0 --port 8000
+[0;1;38;5;245m[0m
+Restart=always
+RestartSec=3
+[0;1;38;5;245m[0m
+[0;1;36m[Install][0m
+WantedBy=multi-user.target

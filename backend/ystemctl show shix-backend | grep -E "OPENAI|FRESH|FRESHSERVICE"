@@ -1,0 +1,15 @@
+[0;1;32m●[0m shix-backend.service - SHIX Backend
+     Loaded: loaded (]8;;file://srv1171677/etc/systemd/system/shix-backend.service/etc/systemd/system/shix-backend.service]8;;; [0;1;38;5;185mdisabled[0m; preset: [0;1;32menabled[0m)
+     Active: [0;1;32mactive (running)[0m since Tue 2025-12-09 23:18:53 UTC; 1min 10s ago
+   Main PID: 298618 (uvicorn)
+      Tasks: 10 (limit: 4602)
+     Memory: 78.3M (peak: 78.5M)
+        CPU: 1.501s
+     CGroup: /system.slice/shix-backend.service
+             └─[0;38;5;245m298618 /home/shix.livosys.se/backend/venv/bin/python3.12 /home/shix.livosys.se/backend/venv/bin/uvicorn main:app --host 0.0.0.0 --port 8000[0m
+
+Dec 09 23:18:53 srv1171677 systemd[1]: Started shix-backend.service - SHIX Backend.
+Dec 09 23:18:55 srv1171677 uvicorn[298618]: INFO:     Started server process [298618]
+Dec 09 23:18:55 srv1171677 uvicorn[298618]: INFO:     Waiting for application startup.
+Dec 09 23:18:55 srv1171677 uvicorn[298618]: INFO:     Application startup complete.
+Dec 09 23:18:55 srv1171677 uvicorn[298618]: INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)

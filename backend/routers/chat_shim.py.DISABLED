@@ -1,0 +1,16 @@
+from fastapi import APIRouter, Depends
+from security.jwt_guard import require_role
+from routers.contracts import ReactPayload
+from routers.react import react
+
+router = APIRouter()
+
+@router.post("/chat")
+def chat(
+    payload: ReactPayload,
+    user=Depends(require_role("agent"))
+):
+    """
+    Shim layer – chat frontend → react core
+    """
+    return react(payload, user)

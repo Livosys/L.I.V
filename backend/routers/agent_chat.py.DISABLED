@@ -1,0 +1,34 @@
+from fastapi import APIRouter, HTTPException
+from pydantic import BaseModel
+from backend.freshservice.client import get_ticket
+
+router = APIRouter(prefix="/api/agent", tags=["agent"])
+
+class ChatPayload(BaseModel):
+    ticket_id: int
+    question: str
+
+@router.post("/chat")
+def chat(payload: ChatPayload):
+    try:
+        data = get_ticket(payload.ticket_id)
+        t = data.get("ticket", {})
+        summary = {
+            "id": t.get("id"),
+            "subject": t.get("subject"),
+            "status": t.get("status"),
+            "priority": t.get("priority"),
+            "due_by": t.get("due_by"),
+            "type": t.get("type"),
+            "description": t.get("description_text"),
+        }
+        return {
+            "summary": summary,
+            "suggested_next_steps": [
+                "Bekräfta mottagande till användaren",
+                "Kontrollera SLA och prioritet",
+                "Tilldela grupp/agent",
+            ]
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))

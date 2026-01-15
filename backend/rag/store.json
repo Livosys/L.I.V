@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "title": "VPN fungerar inte",
+    "content": "Kontrollera att VPN-klienten är uppdaterad och att MFA fungerar."
+  },
+  {
+    "id": 2,
+    "title": "Lösenord återställning",
+    "content": "Återställ lösenord via Azure AD-portalen."
+  }
+]

@@ -1,0 +1,208 @@
+To correct the import paths and maintain compatibility across the files, we will make sure that each module is correctly imported, considering a typical project structure. Below are the updated versions of your files with corrected imports.
+
+---
+
+### Main Application Code (Single File Solution)
+
+```python
+import os
+import logging
+import openai
+from datetime import datetime
+from fastapi import FastAPI, APIRouter
+from fastapi.middleware.cors import CORSMiddleware
+
+# Assuming these modules exist and are located correctly within the project
+from rag.llm_client import embed_text, ask_llm, chat as ask
+from rag.vector_db import search
+from rag.embeddings import embed_query
+from rag.graph_retriever import graph_expand
+from rag.graph_rag_answer_engine import answer as graph_answer
+from rag.sla_context import apply_sla_weighting
+from agents.self_critic import critique
+from audit.audit_log import log
+from routers import rag, kb, tickets, rag_router, rag_tickets, rag_agent
+
+# Configure logger
+log = logging.getLogger("llm")
+
+# Set API key for OpenAI
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+if not OPENAI_API_KEY:
+    raise RuntimeError("OPENAI_API_KEY not set")
+openai.api_key = OPENAI_API_KEY
+
+
+# ---------------------------------------------------------
+# MAIN FUNCTIONALITIES
+# ---------------------------------------------------------
+
+def embed_query(text: str) -> list:
+    return embed_text(text)
+
+def chat(prompt: str, context: str = "") -> str:
+    messages = []
+
+    if context:
+        messages.append({
+            "role": "system",
+            "content": f"Context:\n{context}"
+        })
+
+    messages.append({
+        "role": "user",
+        "content": prompt
+    })
+
+    resp = openai.ChatCompletion.create(
+        model="gpt-4o-mini",
+        messages=messages,
+        temperature=0.2
+    )
+
+    return resp["choices"][0]["message"]["content"].strip()
+
+def ask(prompt: str) -> str:
+    return chat(prompt)
+
+def ask_llm(prompt: str, context: str = "") -> str:
+    return chat(prompt, context)
+
+def embed_text(text: str) -> list:
+    resp = openai.Embedding.create(
+        model="text-embedding-3-small",
+        input=text
+    )
+    return resp["data"][0]["embedding"]
+
+def answer(query: str) -> dict:
+    q_emb = embed_query(query)
+
+    scored = search(q_emb, top_k=5)
+    chunks = [c for _, c in scored]
+
+    graph_context = graph_expand(chunks)
+
+    context_texts = []
+    for c in chunks:
+        if c.get("text"):
+            context_texts.append(c["text"])
+
+    for g in graph_context:
+        text = g["data"].get("text")
+        if text:
+            context_texts.append(text)
+
+    if not context_texts:
+        return {
+            "answer": "No relevant information found.",
+            "contexts": [],
+            "generated_at": datetime.utcnow().isoformat() + "Z"
+        }
+
+    prompt = f"""
+You are an IT support expert.
+
+Question:
+{query}
+
+Context:
+""" + "\n\n".join(f"- {t}" for t in context_texts)
+
+    llm_answer = ask_llm(prompt)
+
+    return {
+        "answer": llm_answer,
+        "contexts": context_texts,
+        "generated_at": datetime.utcnow().isoformat() + "Z"
+    }
+
+def enterprise_answer(query: str, user: str = "system") -> dict:
+    attempt = 0
+    max_attempts = 2
+
+    while attempt < max_attempts:
+        result = graph_answer(query)
+
+        contexts = result.get("contexts", [])
+        weighted = apply_sla_weighting(query, contexts)
+        result["contexts"] = weighted
+
+        ok = critique(result["answer"], query)
+
+        log({
+            "user": user,
+            "query": query,
+            "attempt": attempt + 1,
+            "approved": ok
+        })
+
+        if ok:
+            result["approved"] = True
+            return result
+
+        attempt += 1
+
+    result["approved"] = False
+    return result
+
+# ---------------------------------------------------------
+# API ROUTING
+# ---------------------------------------------------------
+
+router = APIRouter(
+    prefix="/api/chat",
+    tags=["chat"]
+)
+
+@router.post("")
+async def chat(payload: dict):
+    message = (payload.get("message") or "").strip()
+
+    if not message:
+        return {
+            "success": True,
+            "answer": "Hej 👋 Vad kan jag hjälpa dig med?"
+        }
+
+    try:
+        result = enterprise_answer(message)
+        return {
+            "success": True,
+            "answer": result
+        }
+    except Exception:
+        return {
+            "success": True,
+            "answer": "Jag kan hjälpa dig med VPN, ärenden eller guider."
+        }
+
+
+app = FastAPI(title="SHIX Backend", version="1.0.0")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Include routers
+app.include_router(router)  # chat defines its own prefix
+app.include_router(rag.router)
+app.include_router(rag_router.router)
+app.include_router(rag_tickets.router)
+app.include_router(rag_agent.router)
+app.include_router(kb.router)
+app.include_router(tickets.router)
+
+@app.get("/health")
+def health():
+    return {"status": "ok"}
+```
+
+### Notes:
+- Ensure modules like `agents`, `rag`, `audit`, and `routers` are correctly structured and importable under your Python package namespace.
+- The above are compact code assumptions, considering you haven't provided a specific file breakdown. Split each defined functionality if you have defined modules for those.
+- Double-check model names and variables align with your actual implementation.

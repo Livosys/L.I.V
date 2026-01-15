@@ -1,0 +1,16 @@
+from fastapi import APIRouter
+from pydantic import BaseModel
+
+router = APIRouter()
+
+class ChatRequest(BaseModel):
+    message: str
+
+@router.post("/api/chat")
+def chat(req: ChatRequest):
+    return {
+        "answer": "🚨 AI_CHAT.PY IS ACTIVE 🚨",
+        "message_received": req.message,
+        "router": "ai_chat.py",
+        "fingerprint": "AI_CHAT_001"
+    }

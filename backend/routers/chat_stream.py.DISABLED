@@ -1,0 +1,31 @@
+from fastapi import APIRouter
+from pydantic import BaseModel
+from sse_starlette.sse import EventSourceResponse
+import os
+from openai import OpenAI
+
+router = APIRouter(prefix="/api", tags=["chat-stream"])
+
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
+class ChatPayload(BaseModel):
+    message: str
+
+@router.post("/chat/stream")
+async def chat_stream(payload: ChatPayload):
+
+    async def event_generator():
+        response = client.chat.completions.create(
+            model=os.getenv("OPENAI_MODEL", "gpt-4.1-mini"),
+            stream=True,
+            messages=[
+                {"role": "system", "content": "Du är SHIX, en ITSM-assistent."},
+                {"role": "user", "content": payload.message}
+            ]
+        )
+
+        for chunk in response:
+            if chunk.choices and chunk.choices[0].delta.get("content"):
+                yield chunk.choices[0].delta["content"]
+
+    return EventSourceResponse(event_generator())

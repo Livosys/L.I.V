@@ -1,0 +1,23 @@
+{
+  "platform-version": "2.3",
+  "product": {
+    "freshservice": {
+      "location": {
+        "ticket_sidebar": {
+          "url": "https://api.shix.livosys.se/app"
+        }
+      }
+    }
+  },
+  "permissions": {
+    "freshservice": {
+      "read": ["tickets", "solutions"],
+      "write": ["notes"]
+    }
+  },
+  "oauth": {
+    "client_id": "SHIX_CLIENT_ID",
+    "client_secret": "SHIX_CLIENT_SECRET",
+    "redirect_uri": "https://api.shix.livosys.se/oauth/callback"
+  }
+}

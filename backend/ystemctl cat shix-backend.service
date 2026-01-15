@@ -1,0 +1,27 @@
+[0;1;34m# ]8;;file://srv1171677/etc/systemd/system/shix-backend.service/etc/systemd/system/shix-backend.service]8;;[0m
+[0;1;36m[Unit][0m
+Description=SHIX FastAPI Backend
+After=network.target
+[0;1;38;5;245m[0m
+[0;1;36m[Service][0m
+User=root
+WorkingDirectory=/opt/shix/backend
+[0;1;38;5;245m[0m
+Environment="FRESHSERVICE_API_KEY=REPLACE_WITH_AGENT_KEY"
+Environment="FRESHSERVICE_WORKSPACE_ID=1"
+Environment="FRESHSERVICE_BASE_URL=https://livosys.freshservice.com/api/v2"
+[0;1;38;5;245m[0m
+[0;1;38;5;245m# 🔐 LLM CONFIG[0m
+Environment="OPENAI_API_KEY=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"
+Environment="OPENAI_MODEL=gpt-4.1-mini"
+[0;1;38;5;245m[0m
+ExecStart=/opt/shix/venv/bin/uvicorn main:app --host 127.0.0.1 --port 8000
+Restart=always
+RestartSec=3
+[0;1;38;5;245m[0m
+[0;1;36m[Install][0m
+WantedBy=multi-user.target
+
+[0;1;34m# ]8;;file://srv1171677/etc/systemd/system/shix-backend.service.d/env.conf/etc/systemd/system/shix-backend.service.d/env.conf]8;;[0m
+[0;1;36m[Service][0m
+Environment="OPENAI_API_KEY=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"

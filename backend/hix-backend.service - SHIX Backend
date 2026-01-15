@@ -1,0 +1,18 @@
+[0;1;32m●[0m shix-backend.service - SHIX Backend
+     Loaded: loaded (]8;;file://srv1171677/etc/systemd/system/shix-backend.service/etc/systemd/system/shix-backend.service]8;;; [0;1;32menabled[0m; preset: [0;1;32menabled[0m)
+    Drop-In: /etc/systemd/system/shix-backend.service.d
+             └─]8;;file://srv1171677/etc/systemd/system/shix-backend.service.d/env.confenv.conf]8;;, ]8;;file://srv1171677/etc/systemd/system/shix-backend.service.d/freshservice.conffreshservice.conf]8;;
+     Active: [0;1;32mactive (running)[0m since Wed 2026-01-14 21:51:16 UTC; 40s ago
+   Main PID: 82196 (uvicorn)
+      Tasks: 1 (limit: 4602)
+     Memory: 30.5M (peak: 30.8M)
+        CPU: 446ms
+     CGroup: /system.slice/shix-backend.service
+             └─[0;38;5;245m82196 /opt/shix/venv/bin/python3 /opt/shix/venv/bin/uvicorn main:app --host 127.0.0.1 --port 8000[0m
+
+Jan 14 21:51:16 srv1171677 systemd[1]: Started shix-backend.service - SHIX Backend.
+Jan 14 21:51:17 srv1171677 uvicorn[82196]: INFO:     Started server process [82196]
+Jan 14 21:51:17 srv1171677 uvicorn[82196]: INFO:     Waiting for application startup.
+Jan 14 21:51:17 srv1171677 uvicorn[82196]: INFO:     Application startup complete.
+Jan 14 21:51:17 srv1171677 uvicorn[82196]: INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+Jan 14 21:51:45 srv1171677 uvicorn[82196]: INFO:     83.253.107.139:0 - "POST /api/chat HTTP/1.1" 404 Not Found

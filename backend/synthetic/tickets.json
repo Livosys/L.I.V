@@ -1,0 +1,24 @@
+[
+  {
+    "id": 1,
+    "subject": "VPN fungerar inte",
+    "description_html": "<p><strong>Problem:</strong><br>Användaren kan inte ansluta till VPN från hemmet.</p><p><strong>Felmeddelande:</strong><br><em>Connection timed out</em></p><p><strong>Påverkan:</strong><br>Användaren kan inte arbeta remote.</p>",
+    "status": "Open",
+    "priority": "Medium",
+    "requester": "Anna Andersson",
+    "department": "Ekonomi",
+    "created_at": "2026-01-14 09:12",
+    "agent": "—"
+  },
+  {
+    "id": 2,
+    "subject": "Behöver server access",
+    "description_html": "<p><strong>Begäran:</strong><br>Ny anställd behöver åtkomst till produktionsserver.</p><p><strong>System:</strong><br>Prod-01</p><p><strong>Chef godkänd:</strong><br>Ja</p>",
+    "status": "Open",
+    "priority": "High",
+    "requester": "Jamil Dawod",
+    "department": "IT",
+    "created_at": "2026-01-13 14:33",
+    "agent": "—"
+  }
+]

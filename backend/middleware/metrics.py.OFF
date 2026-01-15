@@ -1,0 +1,32 @@
+from prometheus_client import Counter, Histogram, generate_latest, CONTENT_TYPE_LATEST
+from fastapi import Request, Response
+import time
+
+REQ_COUNT = Counter(
+    "shix_http_requests_total",
+    "Total HTTP requests",
+    ["method", "path", "status"]
+)
+
+REQ_LATENCY = Histogram(
+    "shix_http_request_duration_seconds",
+    "Request latency",
+    ["path"]
+)
+
+async def metrics_middleware(request: Request, call_next):
+    start = time.time()
+    response = await call_next(request)
+    duration = time.time() - start
+
+    REQ_COUNT.labels(
+        method=request.method,
+        path=request.url.path,
+        status=response.status_code
+    ).inc()
+
+    REQ_LATENCY.labels(path=request.url.path).observe(duration)
+    return response
+
+def metrics_endpoint():
+    return Response(generate_latest(), media_type=CONTENT_TYPE_LATEST)

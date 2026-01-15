@@ -1,0 +1,12 @@
+[
+  {
+    "id": "kb-001",
+    "title": "Troubleshooting VPN Issues",
+    "description": "If VPN does not connect, verify credentials, restart client, and check firewall rules."
+  },
+  {
+    "id": "kb-002",
+    "title": "VPN Installation on Windows",
+    "description": "Download the VPN client, install it, log in with company credentials, and connect to the default profile."
+  }
+]

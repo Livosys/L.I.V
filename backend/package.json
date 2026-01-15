@@ -1,0 +1,18 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "SHIX är en säker AI-overlay för Freshservice som: - Läser tickets utan dataläckage - Automatiserar klassificering & SLA - Kräver mänskligt godkännande vid behov - Är redo för SOC2 / ISO27001",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@openai/codex": "^0.80.0"
+  }
+}

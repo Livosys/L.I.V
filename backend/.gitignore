@@ -1,0 +1,22 @@
+venv/
+__pycache__/
+.env
+*.log
+eval/results.txt
+# backups & secrets
+.env.*
+*.bak
+*.bak.*
+*.txt
+*_runtime*
+*_final*
+*_error*
+close_test_tickets.sh
+
+# local tests
+env_check.txt*
+env_runtime.txt*
+env_final.txt*
+
+# python cache
+**/__pycache__/
