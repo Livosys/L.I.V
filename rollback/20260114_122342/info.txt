@@ -1,4 +1,0 @@
-Rollback created: 20260114_122342
-Host: srv1171677
-User: root
-Reason: liv spara
