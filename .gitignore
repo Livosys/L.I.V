@@ -3,31 +3,28 @@ __pycache__/
 *.pyc
 *.pyo
 
-# Virtualenvs
+# Virtualenv
 venv/
-.env
-.env.*
+.venv/
 
-# Databases
-*.db
-*.sqlite
-*.sqlite3
+# Environment / secrets
+.env
+*.env
+env.conf
 
 # Logs
 *.log
+logs/
 
-# OS / Editor
+# RAG / Vector data
+data/
+vectors/
+*.faiss
+*.pkl
+
+# OS
 .DS_Store
+
+# Editor
 .vscode/
 .idea/
-
-# Node / Frontend
-node_modules/
-dist/
-
-# Secrets
-*.key
-*.pem
-
-# Binaries / archives
-*.tar.gz
